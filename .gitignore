@@ -114,7 +114,7 @@ dist
 
 # production
 /build
-
+/src/Assets/book_data
 # misc
 .DS_Store
 .env.local
