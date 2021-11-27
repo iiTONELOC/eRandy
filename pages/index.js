@@ -1,11 +1,12 @@
+import Head from 'next/head'
 import { useState, useEffect } from "react";
-import BookShelf from "./Components/BookShelf";
+import BookShelf from '../Components/BookShelf'
 
 export function calculateHeight() {
   const navHeight = 0;
   return window.innerHeight - navHeight;
 };
-export default function App() {
+export default function Home() {
   const [view, setView] = useState('home');
   const [height, setHeight] = useState(null);
   const [opacity, setOpacity] = useState(1);
@@ -60,4 +61,4 @@ export default function App() {
       {/* section that holds eReader */}
     </section>
   );
-};
+}
