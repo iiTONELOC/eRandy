@@ -71,6 +71,7 @@ export default function Home() {
           adjustments={userAdjustments}
           setBookFn={setCurrentBook}
           setView={handleView}
+          book={currentBook}
         />
       }
 

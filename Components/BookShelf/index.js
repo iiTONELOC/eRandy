@@ -4,7 +4,7 @@ import Book from "../Book";
 
 export default function BookShelf({ userStyles, ...props }) {
     const { textColor, background, accentColor } = userStyles;
-    const { adjustments, setCurrentBook, setBookFn, setView } = props;
+    const { adjustments, setBookFn, setView } = props;
     const { books, loading, error } = getBookData();
     const [myBooks, setMyBooks] = useState(null);
     useEffect(() => {

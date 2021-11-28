@@ -8,7 +8,6 @@ export default function Book({ userStyles, book, setView, setBookFn }) {
 
     useEffect(() => {
         setMounted(true);
-        console.log(`BOOK DATA`, book)
         return () => setMounted(false)
     }, [])
     if (!isMounted) return null;
