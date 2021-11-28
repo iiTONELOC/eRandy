@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { currentBookHandler } from "../../lib/utils/state-helpers";
 import readText from "../../lib/utils/text-reader";
-import ReadAloud from "./ReadAloud";
+import ReadAloud from "../ReadAloud";
 
 export default function Book({ userStyles, book, setView, setBookFn }) {
     const { textColor, background, accentColor, textBackground } = userStyles;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import getSingleBookData from "../../Hooks/getSingleBook";
 import { FcPrevious, FcNext } from "react-icons/fc";
 import ButtonWithToolTip from "../ButtonWithToolTip";
-import ReadAloud from "../Book/ReadAloud";
+import ReadAloud from "../ReadAloud";
 import { size } from "lodash";
 const buttonSettings = {
     color: 'gray-400',
@@ -93,7 +93,7 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
     };
     function setPicture_setPageText(page_num) {
         for (const text in thisBook.pages_with_text[page_num]) {
-            setCurrentPageData(thisBook.pages_with_text[page_num][text].trim().split('\n').join(' '));
+            setCurrentPageData(thisBook.pages_with_text[page_num][text].trim()/*.split('\n').join(' ')*/);
         };
         const url = `/book_images/${thisBook.title.split(' ').join('_')}/images/page_${page_num !== null ? page_num : 0}.jpg`
         if (url) {
@@ -122,9 +122,7 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
                         }}
                     />
                 </span>
-
             </header>
-
             <div
                 className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg overflow-y-auto'
                 style={{
@@ -144,14 +142,29 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
                     <div className="flex flex-row gap-2 justify-start h-full w-full ">
                         <div className='w-1/12 k h-full flex flex-col items-start justify-center pl-2'>{hover && <ButtonWithToolTip {...buttonData[0]} />}</div>
                         <div className='w-full h-full flex flex-row items-start justify-center'>
-                            <p className='w-full text-8xl text-center my-3'>
-                                {currentPageData}
-                            </p>
+                            <section className='w-full h-full flex flex-col justify-between items-start'>
+                                {currentPageNumber != 0 && <p className='w-full text-8xl text-center my-3'>
+                                    {currentPageData}
+                                </p>}
+                                {
+                                    currentPageNumber == 0 &&
+                                    <span className="w-full h-full flex flex-col justify-between items-center text-3xl sm:text-5xl md:text-7xl lg:text-8xl">
+                                        <span ><h1>{thisBook?.series}</h1></span>
+                                        <span ><h2 className='italic'>{thisBook.title}</h2></span>
+                                        <span ><h3 className='italic'>{thisBook.author}</h3> </span>
+                                    </span>
+                                }
+                                <footer
+                                    className='w-full block text-center mt-5 mb-2'
+                                >
+                                    <p className="text-6xl">- {currentPageNumber} -</p>
+                                </footer>
+                            </section>
                         </div>
                         <div className='w-1/12 k h-full flex flex-col items-end pr-2 justify-center '>{hover && <ButtonWithToolTip {...buttonData[1]} />}</div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 };
