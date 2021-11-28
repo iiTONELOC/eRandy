@@ -1,6 +1,6 @@
-import Button from "./Button";
+
 import { useState, useEffect } from "react";
-import { hoverHandler } from "../navigation/NavLink";
+
 /*
 Creates a custom button with tooltip
 // EXAMPLE USAGE:
@@ -29,9 +29,7 @@ export default function ButtonWithToolTip({ ...props }) {
     const { Icon, toolTip, action, settings, iconSize, name, iconProps } = props;
     const [isMounted, setMounted] = useState(false);
     const [hover, setHover] = useState(false);
-    function onHover() {
-        return hoverHandler({ hover, setHover });
-    };
+
     useEffect(() => {
         setMounted(true);
         return () => { setMounted(false); setHover(false) };
@@ -40,25 +38,18 @@ export default function ButtonWithToolTip({ ...props }) {
 
     return (
         <span
-            className="static flex flex-col items-center w-full"
-            onMouseEnter={onHover}
-            onMouseLeave={onHover}
+            className="static flex flex-col items-center w-full bg-gray-600"
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
             onClick={(e) => {
                 typeof action === 'function' ?
-                    action(e, dispatch, user) :
+                    action(e) :
                     alert(action);
-                parentHoverHandler ?
-                    parentHoverHandler() :
-                    null
             }}
         >
-            <Button
-                color={{ color: `${settings.button.color}`, hover: `${settings.button.hover}` }}
-                radius={'rounded-md'}
-                class={`${!hover ? settings.icon.color : 'text-gray-100'} text-center p-1 ${settings.button.classNames ? settings.button.classNames : ''}`}
-            >
-                {Icon ? <Icon size={iconSize} {...iconProps} /> : name}
-            </Button>
+            <button
+            > {Icon ? <Icon size={iconSize} style={iconProps} /> : name}</button>
+
             {
                 hover === true ?
                     <span

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import getSingleBookData from "../../Hooks/getSingleBook";
-import { GrNext, GrPrevious } from "react-icons/gr";
+
+import { FcPrevious, FcNext } from "react-icons/fc";
+import ButtonWithToolTip from "../ButtonWithToolTip";
 const buttonSettings = {
-
-    color: 'gray-800',
+    color: 'gray-400',
     hover: 'purple-500'
-
 };
 const iconSize = '55px';
 const toolTipClasses = 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg';
@@ -28,13 +28,8 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
         }
     }, [isMounted, book]);
     useEffect(() => {
-        setCurrentPageNumber(0);
-        if (thisBook) {
-            for (const text in thisBook.pages_with_text[currentPageNumber]) {
-                setCurrentPageData(thisBook.pages_with_text[currentPageNumber][text].trim());
-            }
-            const url = `/book_images/${thisBook.title.split(' ').join('_')}/images/page_0.jpg`
-            setCurrentPageImage(url);
+        if (thisBook && !currentPageData) {
+            nextPage(0)
         }
     }, [thisBook]);
     useEffect(() => {
@@ -44,14 +39,17 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
     if (!thisBook) { return <h1 className='text-center text-9xl'>NO BOOKS YET!!</h1> }
     { error && <h1 className='text-center text-6xl'>{error}</h1> }
     const buttonData = [{
-        Icon: GrPrevious,
+        Icon: FcPrevious,
         toolTip: "previous page",
         iconSize: iconSize,
-        action: 'previous page',
+        action: previousPage,
         settings: {
-            button: { ...buttonSettings },
+            button: {
+                color: 'gray-400',
+                hover: 'purple-500'
+            },
             icon: {
-                color: 'yellow'
+                style: { color: 'white' }
             },
             toolTip: {
                 classNames: toolTipClasses,
@@ -59,34 +57,68 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
         },
     },
     {
-        Icon: GrNext,
+        Icon: FcNext,
         toolTip: "next page",
         iconSize: iconSize,
-        action: 'next page',
+        action: nextPage,
         settings: {
             button: { ...buttonSettings },
             icon: {
-                color: 'yellow'
+                style: { color: 'white' }
             },
             toolTip: {
                 classNames: toolTipClasses,
             },
         },
     }]
+    function nextPage(num) {
+        let page_num = num
+        if (page_num == 0) {
+            setCurrentPageNumber(0);
+        } else if (page_num = currentPageNumber + 1 < (thisBook.pages_with_text.length - 1)) {
+            page_num = currentPageNumber + 1;
+            setCurrentPageNumber(page_num);
+            ;
+        } else { return false }
+        setPicture_setPageText(page_num)
+    };
+    function previousPage(num) {
+        let page_num = num
+        if (page_num == 0) {
+            setCurrentPageNumber(0);
+        } else if (currentPageNumber - 1 >= 0) {
+            page_num = currentPageNumber - 1;
+            setCurrentPageNumber(page_num);
+        } else { return false }
+        setPicture_setPageText(page_num);
+    };
+    function setPicture_setPageText(page_num) {
+        console.log(`setting pcture`, page_num)
+        for (const text in thisBook.pages_with_text[page_num]) {
+            setCurrentPageData(thisBook.pages_with_text[page_num][text].trim().split('\n').join(' '));
+        };
+        const url = `/book_images/${thisBook.title.split(' ').join('_')}/images/page_${page_num !== null ? page_num : 0}.jpg`
+        if (url) {
+            setCurrentPageImage(url);
+        };
+    };
+
     return (
         <div
-            className='w-full h-full flex flex-col justify-top items-center py-5 px-2'
+            className='w-full h-full flex flex-col justify-top items-center py-5 px-2 '
             style={{ backgroundColor: background, color: textColor }}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
         >
             <h1 className='text-center text-4xl md:text-5xl'>{thisBook.title}</h1>
             {/* TOOL BAR GOES HERE */}
             <div
-                className='w-full h-full flex flex-col justify-center items-center mt-6 p-2'
+                className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg overflow-y-auto'
                 style={{
                     maskRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundImage: currentPageImage
+                    backgroundImage: `url(${currentPageImage})`
                 }}
             >
                 <div
@@ -94,13 +126,18 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
                         backgroundColor: textBackground,
                         color: textColor,
                     }}
-                    className='w-full h-full flex flex-col justify-center items-center'
+                    className='w-full h-full flex flex-col justify-center items-center rounded-lg overflow-y-auto'
                 >
-                    <p className='text-8xl' >
-                        {currentPageData}
-                    </p>
+                    <div className="flex flex-row gap-2 justify-start h-full w-full ">
+                        <div className='w-1/12 k h-full flex flex-col items-start justify-center pl-2'>{hover && <ButtonWithToolTip {...buttonData[0]} />}</div>
+                        <div className='w-full h-full flex flex-row items-start justify-center'>
+                            <p className='w-full text-8xl text-center my-3'>
+                                {currentPageData}
+                            </p>
+                        </div>
+                        <div className='w-1/12 k h-full flex flex-col items-end pr-2 justify-center '>{hover && <ButtonWithToolTip {...buttonData[1]} />}</div>
+                    </div>
                 </div>
-
             </div>
         </div>
     )

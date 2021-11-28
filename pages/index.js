@@ -9,13 +9,13 @@ export function calculateHeight() {
 };
 export default function Home() {
   const [view, setView] = useState('home');
-  const [opacity, setOpacity] = useState(1);
+  const [opacity, setOpacity] = useState(.8);
   const [height, setHeight] = useState(null);
   const [isMounted, setMounted] = useState(false);
   const [currentBook, setCurrentBook] = useState(null);
   const [textColor, setTextColor] = useState('rgb(229, 231, 235)');
   const [accentColor, setAccentColor] = useState('rgb(229, 231, 235)');
-  const [background, setBackground] = useState(`rgba(31, 41, 55,${opacity})`);
+  const [background, setBackground] = useState(`rgba(31, 41, 55,1)`);
   const [textBackground, setTextBackground] = useState(`rgba(0, 0,0,${opacity})`);
 
   const userStyles = {

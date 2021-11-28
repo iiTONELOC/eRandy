@@ -22,10 +22,10 @@ export default function BookShelf({ userStyles, ...props }) {
             <h1 className='text-center text-7xl md:text-9xl underline'>BookShelf</h1>
             {/* TOOL BAR GOES HERE */}
             <div
-                className='w-full h-full flex flex-col justify-center items-center mt-6 py-4 px-4'
+                className='w-full h-full flex flex-col justify-center items-center mt-6 '
                 style={{
                     backgroundColor: accentColor,
-                    border: `3px solid ${accentColor}`,
+
                 }}
             >
                 <div className='w-full h-full flex flex-row overflow-x-auto justify-center items-center p-8'
@@ -49,6 +49,6 @@ export default function BookShelf({ userStyles, ...props }) {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
