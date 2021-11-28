@@ -9,7 +9,7 @@ export function calculateHeight() {
 };
 export default function Home() {
   const [view, setView] = useState('home');
-  const [opacity, setOpacity] = useState(.8);
+  const [opacity, setOpacity] = useState(.9);
   const [height, setHeight] = useState(null);
   const [isMounted, setMounted] = useState(false);
   const [currentBook, setCurrentBook] = useState(null);

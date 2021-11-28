@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import getSingleBookData from "../../Hooks/getSingleBook";
-
 import { FcPrevious, FcNext } from "react-icons/fc";
 import ButtonWithToolTip from "../ButtonWithToolTip";
+import ReadAloud from "../Book/ReadAloud";
+import { size } from "lodash";
 const buttonSettings = {
     color: 'gray-400',
     hover: 'purple-500'
@@ -32,9 +33,7 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
             nextPage(0)
         }
     }, [thisBook]);
-    useEffect(() => {
-        if (currentPageData) console.log(currentPageData);
-    }, [currentPageData]);
+
     if (!isMounted || !thisBook) return null
     if (!thisBook) { return <h1 className='text-center text-9xl'>NO BOOKS YET!!</h1> }
     { error && <h1 className='text-center text-6xl'>{error}</h1> }
@@ -93,7 +92,6 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
         setPicture_setPageText(page_num);
     };
     function setPicture_setPageText(page_num) {
-        console.log(`setting pcture`, page_num)
         for (const text in thisBook.pages_with_text[page_num]) {
             setCurrentPageData(thisBook.pages_with_text[page_num][text].trim().split('\n').join(' '));
         };
@@ -110,8 +108,23 @@ export default function E_Reader({ userStyles, adjustments, setBookFn, setView, 
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
-            <h1 className='text-center text-4xl md:text-5xl'>{thisBook.title}</h1>
-            {/* TOOL BAR GOES HERE */}
+            <header className='w-full flex flex-row justify-between'>
+                <span><h1 className='text-center text-4xl md:text-5xl'>{thisBook.title}</h1></span>
+                <span className='flex flex-row  items-center justify-end w-1/3 h-full text-5xl'>
+                    {/* TOOL BAR GOES HERE */}
+                    <ButtonWithToolTip
+                        Icon={() => <ReadAloud text={currentPageData} />}
+                        toolTip={'Read Aloud'}
+                        settings={{
+                            toolTip: {
+                                classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
+                            }
+                        }}
+                    />
+                </span>
+
+            </header>
+
             <div
                 className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg overflow-y-auto'
                 style={{

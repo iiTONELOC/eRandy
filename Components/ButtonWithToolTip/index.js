@@ -32,20 +32,21 @@ export default function ButtonWithToolTip({ ...props }) {
 
     useEffect(() => {
         setMounted(true);
+        console.log(iconSize)
         return () => { setMounted(false); setHover(false) };
     }, []);
     if (!isMounted) return null
 
     return (
         <span
-            className="static flex flex-col items-center w-full bg-gray-600"
+            className="static flex flex-col items-center w-auto h-auto bg-gray-600"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={(e) => {
+            onClick={action ? (e) => {
                 typeof action === 'function' ?
                     action(e) :
                     alert(action);
-            }}
+            } : null}
         >
             <button
             > {Icon ? <Icon size={iconSize} style={iconProps} /> : name}</button>
