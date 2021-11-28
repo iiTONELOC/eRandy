@@ -19,7 +19,7 @@ export default function BookShelf({ userStyles, ...props }) {
             className='w-full h-full flex flex-col justify-top items-center py-5 px-2'
             style={{ backgroundColor: background, color: textColor }}
         >
-            <h1 className='text-center text-7xl md:text-9xl'>BookShelf</h1>
+            <h1 className='text-center text-7xl md:text-9xl underline'>BookShelf</h1>
             {/* TOOL BAR GOES HERE */}
             <div
                 className='w-full h-full flex flex-col justify-center items-center mt-6 py-4 px-4'

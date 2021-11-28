@@ -65,14 +65,15 @@ export default function Home() {
         />
       }
       {
-        view === 'book' &&
-        <E_Reader
-          userStyles={userStyles}
-          adjustments={userAdjustments}
-          setBookFn={setCurrentBook}
-          setView={handleView}
-          book={currentBook}
-        />
+        view === 'book'
+          ?
+          <E_Reader
+            userStyles={userStyles}
+            adjustments={userAdjustments}
+            setBookFn={setCurrentBook}
+            setView={handleView}
+            selectedBook={currentBook}
+          /> : null
       }
 
     </section>
