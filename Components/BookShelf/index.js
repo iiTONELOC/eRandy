@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import getBookData from "../../Hooks/getBookData";
 import Book from "../Book";
 
-export default function BookShelf({ handleView, userStyles, adjustments }) {
+export default function BookShelf({ userStyles, ...props }) {
     const { textColor, background, accentColor } = userStyles;
+    const { adjustments, setCurrentBook, setBookFn, setView } = props;
     const { books, loading, error } = getBookData();
     const [myBooks, setMyBooks] = useState(null);
     useEffect(() => {
@@ -37,8 +38,11 @@ export default function BookShelf({ handleView, userStyles, adjustments }) {
                         myBooks.map((book, index) => (
                             <Book
                                 key={index}
-                                userStyles={userStyles}
                                 book={book}
+                                userStyles={userStyles}
+                                setBookFn={setBookFn}
+                                setView={setView}
+                                adjustments={adjustments}
                             />
                         )
                         )
