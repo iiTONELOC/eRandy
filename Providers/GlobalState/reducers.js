@@ -48,7 +48,6 @@ export const reducer = (state, action) => {
                 }
             }
         case SET_FONT_SIZE:
-            console.log('SET_FONT_SIZE', action.fontSize);
             return {
                 ...state,
                 adjustableFontSize: action.fontSize

@@ -20,12 +20,13 @@ export default function Book({ book }) {
 
     return (
         <article
-            className='w-full lg:w-2/3 bg-black h-full flex flex-wrap flex-column items-start justify-center rounded-xl p-3'
+            className='w-full h-full lg:w-2/3 bg-black flex  flex-column items-start justify-center rounded-xl p-3 static'
             style={{
                 maskRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundImage: `url(${url})`,
+
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -33,16 +34,25 @@ export default function Book({ book }) {
         >
             {hover &&
                 <div
-                    className='w-full h-full rounded-xl p-4 flex  flex-col justify-around gap-5 text-start text-3xl sm:text-5xl md:text-7xl lg:text-8xl static'
+                    className='w-full h-full rounded-xl p-4 flex flex-col justify-evenly gap-5 text-3xl sm:text-5xl md:text-7xl lg:text-8xl  static'
                     style={{
                         background: textBackground,
                         color: textColor,
+
                     }}
                 >
-                    {book?.series && <span><h1>{book.series}</h1></span>}
-                    <span><h2 className='italic'>{book.title}</h2></span>
-                    <span><h3 className='italic'>{book.author}</h3></span>
-                    <span className=' absolute self-end'>
+                    <span className='overflow-y-auto'
+                        style={{
+                            background: textBackground,
+                            color: textColor,
+
+                        }}>
+                        <h1>{book.series}</h1>
+                        <h2 className='italic'>{book.title}</h2>
+                        <h3 className='italic'>{book.author}</h3>
+                    </span>
+
+                    <span className=' absolute self-end '>
                         <ButtonWithToolTip
                             Icon={GiWhiteBook}
                             toolTip={'Double Click to Read'}

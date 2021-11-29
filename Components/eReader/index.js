@@ -8,7 +8,7 @@ export default function E_Reader() {
     const globalState = useGlobalStateContext() || [{}, () => { }];
     const [state,] = globalState || [{}, () => { }];
     const [isMounted, setMounted] = useState(false);
-    const { textColor, background, currentBook } = state || {};
+    const { textColor, currentBook } = state || {};
     const { title, currentPage, } = currentBook || {};
     useEffect(() => {
         setMounted(true);
@@ -19,7 +19,7 @@ export default function E_Reader() {
 
     return (
         <div
-            className='w-full h-full flex flex-col justify-top items-center py-5 px-2 bg-gray-900'
+            className='w-full h-full flex flex-col justify-top items-center py-5 px-2 bg-gray-900 overflow-y-auto'
             style={{ color: textColor }}
 
         >

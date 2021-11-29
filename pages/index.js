@@ -26,7 +26,7 @@ export default function Home() {
         color: textColor,
         backgroundColor: background,
       }}
-      className={`flex flex-col flex-wrap justify-center items-center overflow-y-auto`}
+      className={`flex flex-col justify-center items-center overflow-y-auto`}
     >
       {view === 'home' && <BookShelf />}
       {view === 'book' && <E_Reader />}

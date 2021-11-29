@@ -52,7 +52,7 @@ export default function ReaderHeader() {
     if (!isMounted) return null;
 
     return (
-        <div className='w-full flex flex-row justify-between'>
+        <div className='w-full flex flex-wrap flex-row justify-between'>
             <span>
                 <h1 className='text-center text-4xl md:text-5xl'>
                     {title}

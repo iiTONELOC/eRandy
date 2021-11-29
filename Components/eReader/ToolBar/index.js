@@ -1,8 +1,11 @@
+import { decreaseFontSize, increaseFontSize } from '../../../Providers/GlobalState/helpers';
+import { AiOutlineBgColors, AiOutlineFontColors } from 'react-icons/ai';
 import { useGlobalStateContext } from '../../../Providers/GlobalState';
 import { CgPlayListAdd, CgPlayListRemove } from 'react-icons/cg';
 import ButtonWithToolTip from '../../ButtonWithToolTip';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { decreaseFontSize, increaseFontSize } from '../../../Providers/GlobalState/helpers';
+
+
 
 export default function ToolBar() {
     const globalState = useGlobalStateContext() || [{}, () => { }];
@@ -36,6 +39,34 @@ export default function ToolBar() {
                     current_size: state.adjustableFontSize, dispatch
                 })
             }
+        },
+        {
+            Icon: AiOutlineFontColors,
+            toolTip: 'change font color',
+            settings: {
+                toolTip: {
+                    classNames: toolTipClasses
+                }
+            },
+            // action: () => {
+            //     increaseFontSize({
+            //         current_size: state.adjustableFontSize, dispatch
+            //     })
+            // }
+        },
+        {
+            Icon: AiOutlineBgColors,
+            toolTip: 'change font background color',
+            settings: {
+                toolTip: {
+                    classNames: toolTipClasses
+                }
+            },
+            // action: () => {
+            //     decreaseFontSize({
+            //         current_size: state.adjustableFontSize, dispatch
+            //     })
+            // }
         },
         {
             Icon: AiOutlineCloseCircle,

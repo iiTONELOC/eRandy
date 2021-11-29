@@ -61,7 +61,7 @@ export default function Page() {
 
     return (
         <div
-            className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg overflow-y-auto'
+            className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg'
             style={{
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',
@@ -78,22 +78,25 @@ export default function Page() {
                     backgroundColor: pageText.trim() == '' ? null : textBackground,
                     color: textColor,
                 }}
-                className='w-full h-full flex flex-col justify-center items-center rounded-lg overflow-y-auto'
+                className='w-full h-full flex flex-col justify-center items-center rounded-lg '
             >
                 <div className="flex flex-row gap-2 justify-start h-full w-full ">
                     <div className='w-1/12 k h-full flex flex-col items-start justify-center pl-2'>
                         {hover && <ButtonWithToolTip {...buttonData[0]} />}
                     </div>
                     <div className='w-full h-full flex flex-row items-start justify-center'>
-                        <section className='w-full h-full flex flex-col justify-between items-start'>
-                            {/* 96 too big 72 is too small */}
-                            <p className='w-full text-center my-3' style={{ fontSize: adjustableFontSize }}>
-                                {pageText}
-                            </p>
+                        {/* 96 too big 72 is too small */}
+                        <section className='w-full h-full flex flex-col justify-between items-start '>
+                            <div className='overflow-y-auto'>
+                                <p className='w-full text-center my-3 overflow-y-auto ' style={{ fontSize: adjustableFontSize }}>
+                                    {pageText}
+                                </p>
+                            </div>
+
                             <footer
                                 className='w-full block text-center mt-5 mb-2'
                             >
-                                <p className="text-6xl" style={{ fontSize: adjustableFontSize }}>- {currentPage} -</p>
+                                <p style={{ fontSize: adjustableFontSize }}>- {currentPage} -</p>
                             </footer>
                         </section>
                     </div>
