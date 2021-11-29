@@ -11,6 +11,7 @@ const GlobalStateProvider = ({ value = [], ...props }) => {
         accentColor: 'rgb(229, 231, 235)',
         textBackground: `rgba(0, 0,0,.9)`,
         adjustableFontSize: '85px',
+        settings: false,
         currentBook: {
             title: null,
             currentPage: null,

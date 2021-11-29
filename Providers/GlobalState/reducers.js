@@ -9,6 +9,7 @@ import {
     SET_TEXT_COLOR,
     SET_BACKGROUND,
     SET_PAGE_NUMBER,
+    TOGGLE_SETTINGS,
     SET_ACCENT_COLOR,
     SET_TEXT_BACKGROUND,
 } from './actions'
@@ -54,13 +55,17 @@ export const reducer = (state, action) => {
         case SET_BACKGROUND:
             break
         case SET_PAGE_NUMBER:
-            state.currentBook.currentPage = action.pageNumber
             return {
                 ...state,
                 currentBook: {
                     ...state.currentBook,
                     currentPage: action.pageNumber
                 }
+            }
+        case TOGGLE_SETTINGS:
+            return {
+                ...state,
+                settings: !state.settings
             }
         case SET_ACCENT_COLOR:
             break

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import BookShelf from '../Components/BookShelf'
 import E_Reader from '../Components/eReader';
-import { calculateHeight, handlePageHeight } from '../lib/utils/utils';
+import { handlePageHeight } from '../lib/utils/utils';
 import { useGlobalStateContext } from '../Providers/GlobalState';
 export default function Home() {
   const [height, setHeight] = useState(null);
@@ -13,8 +13,8 @@ export default function Home() {
   useEffect(() => {
     setMounted(true);
     if (isMounted) {
-      handlePageHeight(setHeight)
-    }
+      handlePageHeight(setHeight);
+    };
     return () => setMounted(false);
   }, [isMounted]);
   if (!isMounted) return null;

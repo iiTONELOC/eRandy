@@ -5,11 +5,11 @@ import { IoMdOptions } from "react-icons/io";
 import ButtonWithToolTip from "../../ButtonWithToolTip"
 import { setView } from "../../../Providers/GlobalState/helpers";
 import { useGlobalStateContext } from "../../../Providers/GlobalState";
-
+import ToolBar from "../ToolBar";
 export default function ReaderHeader() {
     const globalState = useGlobalStateContext() || [{}, () => { }];
     const [state, dispatch] = globalState || [{}, () => { }];
-    const { currentBook } = state || {};
+    const { currentBook, settings } = state || {};
     const { title, pageText } = currentBook || {};
     const [isMounted, setMounted] = useState(false);
     const headerIcons = [
@@ -31,7 +31,7 @@ export default function ReaderHeader() {
                     classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
                 }
             },
-            action: 'view settings'
+            action: () => { dispatch({ type: 'TOGGLE_SETTINGS' }) }
         },
         {
             Icon: () => <ReadAloud text={pageText} />,
@@ -56,8 +56,10 @@ export default function ReaderHeader() {
                 <h1 className='text-center text-4xl md:text-5xl'>{title}</h1>
             </span>
             <span className='flex flex-row  items-center justify-evenly w-1/4 h-full text-5xl '>
-                {/* TOOL BAR GOES HERE */}
-                {headerIcons.map((icon, index) => <ButtonWithToolTip key={index} {...icon} />)}
+                {
+                    !settings ? headerIcons.map((icon, index) => <ButtonWithToolTip key={index} {...icon} />) :
+                        <ToolBar />
+                }
             </span>
         </div>
     );

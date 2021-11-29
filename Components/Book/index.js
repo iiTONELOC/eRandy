@@ -1,21 +1,21 @@
-import ReadAloud from "../ReadAloud";
 import { useState, useEffect } from "react";
+import { GiWhiteBook } from "react-icons/gi";
 import ButtonWithToolTip from "../ButtonWithToolTip";
 import { useGlobalStateContext } from "../../Providers/GlobalState";
 import { setBook, setView } from "../../Providers/GlobalState/helpers";
-import { GiWhiteBook } from "react-icons/gi";
+
 export default function Book({ book }) {
     const [hover, setHover] = useState(false);
     const globalState = useGlobalStateContext();
     const [isMounted, setMounted] = useState(false);
     const [state, dispatch] = globalState || [{}, () => { }];
     const { textColor, textBackground } = state || {};
-    const url = `/book_images/${book.title.split(' ').join('_')}/page_0.jpg`
+    const url = `/book_images/${book.title.split(' ').join('_')}/page_0.jpg`;
 
     useEffect(() => {
         setMounted(true);
-        return () => setMounted(false)
-    }, [])
+        return () => setMounted(false);
+    }, []);
     if (!isMounted) return null;
 
     return (
@@ -56,5 +56,5 @@ export default function Book({ book }) {
                 </div>
             }
         </article>
-    )
-}
+    );
+};
