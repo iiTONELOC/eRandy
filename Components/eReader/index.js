@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import getSingleBookData from "../../Hooks/getSingleBook";
-import ReaderHeader from "./ReaderHeading";
-import Page from "./page";
-// GiBookshelf
+import ReaderHeader from "./ReaderHeader";
+import Page from "./Page";
+
 
 export default function E_Reader({
     selectedBook,
@@ -76,6 +76,7 @@ export default function E_Reader({
                 <ReaderHeader
                     title={thisBook.title}
                     currentPageData={currentPageData}
+                    setView={setView}
                 />
             </header>
             <Page
@@ -86,6 +87,7 @@ export default function E_Reader({
                 currentPageData={currentPageData}
                 currentPageImage={currentPageImage}
                 currentPageNumber={currentPageNumber}
+
             />
         </div>
     );

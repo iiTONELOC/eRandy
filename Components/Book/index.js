@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { currentBookHandler } from "../../lib/utils/state-helpers";
-import readText from "../../lib/utils/text-reader";
+import ButtonWithToolTip from "../ButtonWithToolTip";
 import ReadAloud from "../ReadAloud";
 
 export default function Book({ userStyles, book, setView, setBookFn }) {
@@ -48,7 +48,15 @@ export default function Book({ userStyles, book, setView, setBookFn }) {
                     <span><h2 className='italic'>{book.title}</h2></span>
                     <span><h3 className='italic'>{book.author}</h3></span>
                     <span className='absolute self-end'>
-                        <ReadAloud text={`${book?.series} ${book.title} by ${book.author}`} />
+                        <ButtonWithToolTip
+                            Icon={() => <ReadAloud text={`${book?.series} ${book.title} by ${book.author}`} />}
+                            toolTip={'Read Aloud'}
+                            settings={{
+                                toolTip: {
+                                    classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
+                                }
+                            }}
+                        />
                     </span>
                 </div>
             }

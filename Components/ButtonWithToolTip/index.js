@@ -32,10 +32,9 @@ export default function ButtonWithToolTip({ ...props }) {
 
     useEffect(() => {
         setMounted(true);
-        console.log(iconSize)
         return () => { setMounted(false); setHover(false) };
     }, []);
-    if (!isMounted) return null
+    if (!isMounted) return null;
 
     return (
         <span

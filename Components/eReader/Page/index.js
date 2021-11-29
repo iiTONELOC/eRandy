@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FcPrevious, FcNext } from "react-icons/fc";
-import ButtonWithToolTip from "../ButtonWithToolTip"
+import { BiFontSize } from "react-icons/bi";
+import ButtonWithToolTip from "../../ButtonWithToolTip"
 const buttonSettings = {
     color: 'gray-400',
     hover: 'purple-500'
@@ -21,8 +22,13 @@ export default function Page({
     const { textColor, background, accentColor, textBackground } = userStyles;
     useEffect(() => {
         setMounted(true);
+
         return () => { setMounted(false) };
     }, []);
+    document.addEventListener('scroll', (e) => {
+
+        console.log('TRUE')
+    })
     if (!isMounted) return null;
     const buttonData = [{
         Icon: FcPrevious,
@@ -71,7 +77,7 @@ export default function Page({
         >
             <div
                 style={{
-                    backgroundColor: textBackground,
+                    backgroundColor: !currentPageData ? null : textBackground,
                     color: textColor,
                 }}
                 className='w-full h-full flex flex-col justify-center items-center rounded-lg overflow-y-auto'
@@ -81,6 +87,15 @@ export default function Page({
                         {hover && <ButtonWithToolTip {...buttonData[0]} />}
                     </div>
                     <div className='w-full h-full flex flex-row items-start justify-center'>
+                        {hover && <ButtonWithToolTip
+                            Icon={BiFontSize}
+                            toolTip={'Adjust font'}
+                            settings={{
+                                toolTip: {
+                                    classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
+                                }
+                            }}
+                        />}
                         <section className='w-full h-full flex flex-col justify-between items-start'>
                             {/* 96 too big 72 is too small */}
                             {
