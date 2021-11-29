@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import ButtonWithToolTip from "../ButtonWithToolTip";
 import { useGlobalStateContext } from "../../Providers/GlobalState";
 import { setBook, setView } from "../../Providers/GlobalState/helpers";
-
+import { GiWhiteBook } from "react-icons/gi";
 export default function Book({ book }) {
     const [hover, setHover] = useState(false);
     const globalState = useGlobalStateContext();
@@ -20,7 +20,7 @@ export default function Book({ book }) {
 
     return (
         <article
-            className='w-full lg:w-2/3 bg-black h-full flex flex-column items-start justify-center rounded-xl p-3'
+            className='w-full lg:w-2/3 bg-black h-full flex flex-wrap flex-column items-start justify-center rounded-xl p-3'
             style={{
                 maskRepeat: 'no-repeat',
                 backgroundSize: 'cover',
@@ -33,7 +33,7 @@ export default function Book({ book }) {
         >
             {hover &&
                 <div
-                    className='w-full h-full rounded-xl p-4 flex flex-wrap flex-col justify-around gap-5 text-start text-3xl sm:text-5xl md:text-7xl lg:text-8xl static'
+                    className='w-full h-full rounded-xl p-4 flex  flex-col justify-around gap-5 text-start text-3xl sm:text-5xl md:text-7xl lg:text-8xl static'
                     style={{
                         background: textBackground,
                         color: textColor,
@@ -42,10 +42,10 @@ export default function Book({ book }) {
                     {book?.series && <span><h1>{book.series}</h1></span>}
                     <span><h2 className='italic'>{book.title}</h2></span>
                     <span><h3 className='italic'>{book.author}</h3></span>
-                    <span className='absolute self-end'>
+                    <span className=' absolute self-end'>
                         <ButtonWithToolTip
-                            Icon={() => <ReadAloud text={`${book?.series} ${book.title} by ${book.author}`} />}
-                            toolTip={'Read Aloud'}
+                            Icon={GiWhiteBook}
+                            toolTip={'Double Click to Read'}
                             settings={{
                                 toolTip: {
                                     classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'

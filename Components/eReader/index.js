@@ -19,11 +19,11 @@ export default function E_Reader() {
 
     return (
         <div
-            className='w-full h-full flex flex-col justify-top items-center py-5 px-2 '
-            style={{ backgroundColor: background, color: textColor }}
+            className='w-full h-full flex flex-col justify-top items-center py-5 px-2 bg-gray-900'
+            style={{ color: textColor }}
 
         >
-            <header className='w-full flex flex-row justify-between'>
+            <header className='w-full flex flex-row justify-between bg-gray-900'>
                 <ReaderHeader
                     title={title}
                     currentPageData={currentPage}

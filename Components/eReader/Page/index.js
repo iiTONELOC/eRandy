@@ -64,17 +64,19 @@ export default function Page() {
         <div
             className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg overflow-y-auto'
             style={{
-                maskRepeat: 'no-repeat',
-                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'contain',
                 backgroundPosition: 'center',
                 backgroundImage: `url(${currentImage})`
+                ,
+                // objectFit: 'scale-down',
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
             <div
                 style={{
-                    backgroundColor: !pageText ? null : textBackground,
+                    backgroundColor: pageText.trim() == '' ? null : textBackground,
                     color: textColor,
                 }}
                 className='w-full h-full flex flex-col justify-center items-center rounded-lg overflow-y-auto'

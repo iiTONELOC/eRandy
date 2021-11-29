@@ -44,10 +44,10 @@ export function setCurrentImage({ pageNumber, dispatch }) {
         type: SET_IMAGE,
         pageNumber
     });
-}
+};
 export function nextPage({ num, dispatch, pages }) {
     let page_num = num
-    if (page_num + 1 < (pages.length - 1)) {
+    if (page_num + 1 < (pages.length)) {
         page_num += 1;
         setCurrentPageNumber({ num: page_num, dispatch });
         ;

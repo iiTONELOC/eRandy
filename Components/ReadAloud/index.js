@@ -1,8 +1,8 @@
-import { AiFillRead } from "react-icons/ai";
+import { FaBookReader } from "react-icons/fa";
 import readText from "../../lib/utils/text-reader";
 export default function ReadAloud({ text }) {
     return (
-        <AiFillRead
+        <FaBookReader
             onClick={() => { readText(text) }}
         />
     );

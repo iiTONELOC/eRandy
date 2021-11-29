@@ -38,7 +38,7 @@ export default function ButtonWithToolTip({ ...props }) {
 
     return (
         <span
-            className="static flex flex-col items-center w-auto h-auto bg-gray-600"
+            className="static flex flex-col items-center w-auto h-auto hover:bg-gray-500  hover:rounded-md"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onClick={action ? (e) => {
