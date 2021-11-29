@@ -12,16 +12,11 @@ export default function getBookData() {
         queryBooks().then(data => {
             data?.data?.forEach(_book => {
                 const dataObj = JSON.parse(_book);
-                // [...Object.values(dataObj)].map(book => {
-                //     console.log(book);
-                // })
-
                 const pages = dataObj.pages;
-
                 setBooks(books => [...books, dataObj]);
             });
-            setLoading(false)
         }).catch(err => { console.log(err); setError(true) })
+        setLoading(false)
     }, [])
 
     return {

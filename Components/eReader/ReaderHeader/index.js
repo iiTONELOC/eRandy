@@ -1,7 +1,21 @@
-import ReadAloud from "../../ReadAloud"
-import ButtonWithToolTip from "../../ButtonWithToolTip"
+import ReadAloud from "../../ReadAloud";
+import { useState, useEffect } from "react";
 import { GiBookshelf } from "react-icons/gi";
-export default function ReaderHeader({ title, currentPageData, setView }) {
+import ButtonWithToolTip from "../../ButtonWithToolTip"
+import { setView } from "../../../Providers/GlobalState/helpers";
+import { useGlobalStateContext } from "../../../Providers/GlobalState";
+export default function ReaderHeader() {
+    const globalState = useGlobalStateContext() || [{}, () => { }];
+    const [state, dispatch] = globalState || [{}, () => { }];
+    const { view, textColor, background, currentBook } = state || {};
+    const { title, currentPage } = currentBook || {};
+    const [isMounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+        return () => { setMounted(false) };
+    }, []);
+
+    if (!isMounted) return null;
     return (
         <>
             <span>
@@ -16,10 +30,10 @@ export default function ReaderHeader({ title, currentPageData, setView }) {
                             classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
                         }
                     }}
-                    action={() => setView('home')}
+                    action={() => setView({ view: 'home', dispatch })}
                 />
                 <ButtonWithToolTip
-                    Icon={() => <ReadAloud text={currentPageData} />}
+                    Icon={() => <ReadAloud text={currentPage} />}
                     toolTip={'Read Aloud'}
                     settings={{
                         toolTip: {

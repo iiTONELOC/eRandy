@@ -1,40 +1,36 @@
 import { useState, useEffect } from "react";
-import { FcPrevious, FcNext } from "react-icons/fc";
 import { BiFontSize } from "react-icons/bi";
+import { FcPrevious, FcNext } from "react-icons/fc";
 import ButtonWithToolTip from "../../ButtonWithToolTip"
+import { useGlobalStateContext } from "../../../Providers/GlobalState";
+import { previousPage, nextPage } from "../../../Providers/GlobalState/helpers";
+
 const buttonSettings = {
     color: 'gray-400',
     hover: 'purple-500'
 };
 const iconSize = '55px';
 const toolTipClasses = 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg';
-export default function Page({
-    currentPageNumber,
-    currentPageImage,
-    currentPageData,
-    previousPage,
-    userStyles,
-    nextPage,
-    thisBook,
-}) {
+
+export default function Page() {
     const [hover, setHover] = useState(false);
+    const globalState = useGlobalStateContext() || [{}, () => { }];
     const [isMounted, setMounted] = useState(false);
-    const { textColor, background, accentColor, textBackground } = userStyles;
+    const [state, dispatch] = globalState || [{}, () => { }];
+    const { textColor, textBackground, currentBook } = state || {};
+    const { currentPage, currentImage, pages, pageText } = currentBook || {};
+
     useEffect(() => {
         setMounted(true);
-
         return () => { setMounted(false) };
     }, []);
-    document.addEventListener('scroll', (e) => {
 
-        console.log('TRUE')
-    })
     if (!isMounted) return null;
     const buttonData = [{
         Icon: FcPrevious,
         toolTip: "previous page",
         iconSize: iconSize,
-        action: previousPage,
+        action: () => { previousPage({ num: currentPage, dispatch, pages }) },
         settings: {
             button: {
                 color: 'gray-400',
@@ -52,7 +48,7 @@ export default function Page({
         Icon: FcNext,
         toolTip: "next page",
         iconSize: iconSize,
-        action: nextPage,
+        action: () => { nextPage({ num: currentPage, dispatch, pages }) },
         settings: {
             button: { ...buttonSettings },
             icon: {
@@ -63,6 +59,7 @@ export default function Page({
             },
         },
     }];
+
     return (
         <div
             className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg overflow-y-auto'
@@ -70,14 +67,14 @@ export default function Page({
                 maskRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                backgroundImage: `url(${currentPageImage})`
+                backgroundImage: `url(${currentImage})`
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
             <div
                 style={{
-                    backgroundColor: !currentPageData ? null : textBackground,
+                    backgroundColor: !pageText ? null : textBackground,
                     color: textColor,
                 }}
                 className='w-full h-full flex flex-col justify-center items-center rounded-lg overflow-y-auto'
@@ -98,24 +95,13 @@ export default function Page({
                         />}
                         <section className='w-full h-full flex flex-col justify-between items-start'>
                             {/* 96 too big 72 is too small */}
-                            {
-                                currentPageNumber != 0 &&
-                                <p className='w-full text-center my-3' style={{ fontSize: '85px', letterSpacing: "5px" }}>
-                                    {currentPageData}
-                                </p>
-                            }
-                            {
-                                currentPageNumber == 0 &&
-                                <span className="w-full h-full flex flex-col justify-between items-center text-3xl sm:text-5xl md:text-7xl lg:text-8xl">
-                                    <span ><h1>{thisBook?.series}</h1></span>
-                                    <span ><h2 className='italic'>{thisBook.title}</h2></span>
-                                    <span ><h3 className='italic'>{thisBook.author}</h3> </span>
-                                </span>
-                            }
+                            <p className='w-full text-center my-3' style={{ fontSize: '85px', letterSpacing: "5px" }}>
+                                {pageText}
+                            </p>
                             <footer
                                 className='w-full block text-center mt-5 mb-2'
                             >
-                                <p className="text-6xl">- {currentPageNumber} -</p>
+                                <p className="text-6xl">- {currentPage} -</p>
                             </footer>
                         </section>
                     </div>

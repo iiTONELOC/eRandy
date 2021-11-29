@@ -1,19 +1,24 @@
-import { useState, useEffect } from "react";
+import { useGlobalStateContext } from "../../Providers/GlobalState";
 import getBookData from "../../Hooks/getBookData";
+import { useState, useEffect } from "react";
 import Book from "../Book";
+import { setLibrary } from "../../Providers/GlobalState/helpers";
 
-export default function BookShelf({ userStyles, ...props }) {
-    const { textColor, background, accentColor } = userStyles;
-    const { adjustments, setBookFn, setView } = props;
+export default function BookShelf() {
+    const globalState = useGlobalStateContext();
+    const [state, dispatch] = globalState || [{}, () => { }];
+    const { textColor, background, accentColor } = state || {};
     const { books, loading, error } = getBookData();
     const [myBooks, setMyBooks] = useState(null);
     useEffect(() => {
         if (books.length > 0 && !myBooks) {
             setMyBooks(books);
+            console.log(books)
         }
     });
     if (!myBooks) { return <h1 className='text-center text-9xl'>NO BOOKS YET!!</h1> }
     { error && <h1 className='text-center text-6xl'>{error}</h1> }
+    if (!state) return null;
     return (
         <div
             className='w-full h-full flex flex-col justify-top items-center py-5 px-2'
@@ -33,22 +38,17 @@ export default function BookShelf({ userStyles, ...props }) {
                         backgroundColor: background,
                     }}
                 >
-                    {/* BOOKS GO HERE */}
-                    {
-                        myBooks.map((book, index) => (
-                            <Book
-                                key={index}
-                                book={book}
-                                userStyles={userStyles}
-                                setBookFn={setBookFn}
-                                setView={setView}
-                                adjustments={adjustments}
-                            />
-                        )
-                        )
-                    }
+                    {myBooks.map(book =>
+                        <Book
+                            key={book.title}
+                            book={book}
+                        />
+                    )}
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
+
+
+

@@ -1,28 +1,24 @@
-import { useState, useEffect } from "react";
-import { currentBookHandler } from "../../lib/utils/state-helpers";
-import ButtonWithToolTip from "../ButtonWithToolTip";
 import ReadAloud from "../ReadAloud";
+import { useState, useEffect } from "react";
+import ButtonWithToolTip from "../ButtonWithToolTip";
+import { useGlobalStateContext } from "../../Providers/GlobalState";
+import { setBook, setView } from "../../Providers/GlobalState/helpers";
 
-export default function Book({ userStyles, book, setView, setBookFn }) {
-    const { textColor, background, accentColor, textBackground } = userStyles;
+export default function Book({ book }) {
     const [hover, setHover] = useState(false);
+    const globalState = useGlobalStateContext();
     const [isMounted, setMounted] = useState(false);
+    const [state, dispatch] = globalState || [{}, () => { }];
+    const { textColor, textBackground } = state || {};
     const url = `/book_images/${book.title.split(' ').join('_')}/page_0.jpg`
 
     useEffect(() => {
         setMounted(true);
         return () => setMounted(false)
     }, [])
-    useEffect(() => {
-        if (hover) {
-
-
-        }
-    }, [hover])
     if (!isMounted) return null;
 
     return (
-        // make a card for each book
         <article
             className='w-full lg:w-2/3 bg-black h-full flex flex-column items-start justify-center rounded-xl p-3'
             style={{
@@ -33,8 +29,7 @@ export default function Book({ userStyles, book, setView, setBookFn }) {
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-
-            onDoubleClick={() => { currentBookHandler({ book_to_set: book.title, setBookFn, setView }) }}
+            onDoubleClick={() => { setBook({ book, setView, dispatch }) }}
         >
             {hover &&
                 <div
