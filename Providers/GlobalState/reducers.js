@@ -10,6 +10,8 @@ import {
     SET_BACKGROUND,
     SET_PAGE_NUMBER,
     TOGGLE_SETTINGS,
+    TOGGLE_COLOR_PICKER,
+    TOGGLE_TEXT_COLOR_PICKER,
     SET_ACCENT_COLOR,
     SET_TEXT_BACKGROUND,
 } from './actions'
@@ -73,6 +75,18 @@ export const reducer = (state, action) => {
             break
         case SET_TEXT_BACKGROUND:
             break
+        case TOGGLE_COLOR_PICKER:
+
+            return {
+                ...state,
+                colorPicker: !state.colorPicker
+            }
+        case TOGGLE_COLOR_PICKER:
+
+            return {
+                ...state,
+                backgroundPicker: !state.backgroundPicker
+            }
         default:
             return state;
     }

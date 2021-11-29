@@ -1,14 +1,17 @@
+import ToolBar from "../ToolBar";
 import ReadAloud from "../../ReadAloud";
 import { useState, useEffect } from "react";
 import { IoLibrary } from "react-icons/io5";
 import { IoMdOptions } from "react-icons/io";
+import { SwatchesPicker } from "react-color";
 import ButtonWithToolTip from "../../ButtonWithToolTip"
 import { setView } from "../../../Providers/GlobalState/helpers";
 import { useGlobalStateContext } from "../../../Providers/GlobalState";
-import ToolBar from "../ToolBar";
+
+
 export default function ReaderHeader() {
     const globalState = useGlobalStateContext() || [{}, () => { }];
-    const [state, dispatch] = globalState || [{}, () => { }];
+    const [state, dispatch, colorPicker, backgroundPicker] = globalState || [{}, () => { }];
     const { currentBook, settings } = state || {};
     const { title, pageText } = currentBook || {};
     const [isMounted, setMounted] = useState(false);
@@ -58,10 +61,16 @@ export default function ReaderHeader() {
                     {title}
                 </h1>
             </span>
-            <span className='flex flex-row  items-center justify-evenly w-1/4 h-full text-5xl '>
+            <span className='flex flex-row  items-center justify-evenly w-1/4 h-full text-5xl static '>
                 {
                     !settings ? headerIcons.map((icon, index) => <ButtonWithToolTip key={index} {...icon} />) :
                         <ToolBar />
+                }
+                {
+                    colorPicker && <SwatchesPicker />
+                }
+                {
+                    backgroundPicker && <SwatchesPicker />
                 }
             </span>
         </div>

@@ -5,7 +5,9 @@ import { CgPlayListAdd, CgPlayListRemove } from 'react-icons/cg';
 import ButtonWithToolTip from '../../ButtonWithToolTip';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-
+import { SwatchesPicker } from 'react-color';
+import { FontColorPicker } from '../ColorPicker/FontColor';
+import { TextBackgroundColorPicker } from '../ColorPicker/TextBackground';
 
 export default function ToolBar() {
     const globalState = useGlobalStateContext() || [{}, () => { }];
@@ -41,32 +43,24 @@ export default function ToolBar() {
             }
         },
         {
-            Icon: AiOutlineFontColors,
+            name: <FontColorPicker icon={AiOutlineFontColors} />,
             toolTip: 'change font color',
             settings: {
                 toolTip: {
                     classNames: toolTipClasses
                 }
             },
-            // action: () => {
-            //     increaseFontSize({
-            //         current_size: state.adjustableFontSize, dispatch
-            //     })
-            // }
+            action: () => { dispatch({ type: 'TOGGLE_COLOR_PICKER', picker: 'font' }) }
         },
         {
-            Icon: AiOutlineBgColors,
-            toolTip: 'change font background color',
+            name: <TextBackgroundColorPicker icon={AiOutlineBgColors} />,
+            toolTip: 'change text background color',
             settings: {
                 toolTip: {
                     classNames: toolTipClasses
                 }
             },
-            // action: () => {
-            //     decreaseFontSize({
-            //         current_size: state.adjustableFontSize, dispatch
-            //     })
-            // }
+            action: () => { dispatch({ type: 'TOGGLE_COLOR_PICKER', picker: 'background' }) }
         },
         {
             Icon: AiOutlineCloseCircle,
