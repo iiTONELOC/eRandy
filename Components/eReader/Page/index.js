@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { BiFontSize } from "react-icons/bi";
 import { FcPrevious, FcNext } from "react-icons/fc";
 import ButtonWithToolTip from "../../ButtonWithToolTip"
 import { useGlobalStateContext } from "../../../Providers/GlobalState";
@@ -17,7 +16,7 @@ export default function Page() {
     const globalState = useGlobalStateContext() || [{}, () => { }];
     const [isMounted, setMounted] = useState(false);
     const [state, dispatch] = globalState || [{}, () => { }];
-    const { textColor, textBackground, currentBook } = state || {};
+    const { textColor, textBackground, currentBook, adjustableFontSize } = state || {};
     const { currentPage, currentImage, pages, pageText } = currentBook || {};
 
     useEffect(() => {
@@ -86,24 +85,15 @@ export default function Page() {
                         {hover && <ButtonWithToolTip {...buttonData[0]} />}
                     </div>
                     <div className='w-full h-full flex flex-row items-start justify-center'>
-                        {hover && <ButtonWithToolTip
-                            Icon={BiFontSize}
-                            toolTip={'Adjust font'}
-                            settings={{
-                                toolTip: {
-                                    classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
-                                }
-                            }}
-                        />}
                         <section className='w-full h-full flex flex-col justify-between items-start'>
                             {/* 96 too big 72 is too small */}
-                            <p className='w-full text-center my-3' style={{ fontSize: '85px', letterSpacing: "5px" }}>
+                            <p className='w-full text-center my-3' style={{ fontSize: adjustableFontSize }}>
                                 {pageText}
                             </p>
                             <footer
                                 className='w-full block text-center mt-5 mb-2'
                             >
-                                <p className="text-6xl">- {currentPage} -</p>
+                                <p className="text-6xl" style={{ fontSize: adjustableFontSize }}>- {currentPage} -</p>
                             </footer>
                         </section>
                     </div>

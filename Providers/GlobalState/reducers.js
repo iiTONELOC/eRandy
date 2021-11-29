@@ -21,7 +21,6 @@ export const reducer = (state, action) => {
                 view: action.view
             }
         case SET_IMAGE:
-            console.log('SET_IMAGE', `/book_images/${state.currentBook.title.split(' ').join('_')}/page_${action.pageNumber}.jpg`,);
             return {
                 ...state,
                 currentBook: {
@@ -49,7 +48,11 @@ export const reducer = (state, action) => {
                 }
             }
         case SET_FONT_SIZE:
-            break
+            console.log('SET_FONT_SIZE', action.fontSize);
+            return {
+                ...state,
+                adjustableFontSize: action.fontSize
+            }
         case SET_TEXT_COLOR:
             break
         case SET_BACKGROUND:

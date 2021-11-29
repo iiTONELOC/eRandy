@@ -64,3 +64,25 @@ export function previousPage({ num, dispatch, pages }) {
     setCurrentPage({ page: pages[page_num][`page_${page_num}.jpg`], dispatch });
     setCurrentImage({ pageNumber: page_num, dispatch });
 };
+export function increaseFontSize({ current_size, dispatch }) {
+    let size = current_size
+    size = current_size.split('px')[0]
+    size = parseInt(size) + 2
+    size = `${size}` + 'px'
+    return dispatch({
+        type: SET_FONT_SIZE,
+        fontSize: size
+    });
+};
+export function decreaseFontSize({ current_size, dispatch }) {
+    let size = current_size
+    if (size.split('px')[0] > 0) {
+        size = current_size.split('px')[0]
+        size = parseInt(size) - 2
+        size = `${size}` + 'px'
+        return dispatch({
+            type: SET_FONT_SIZE,
+            fontSize: size
+        });
+    };
+};

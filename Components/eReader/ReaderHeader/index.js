@@ -12,13 +12,14 @@ export default function ReaderHeader() {
     const { currentBook, settings } = state || {};
     const { title, pageText } = currentBook || {};
     const [isMounted, setMounted] = useState(false);
+    const toolTipClasses = 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
     const headerIcons = [
         {
             Icon: IoLibrary,
             toolTip: 'my library',
             settings: {
                 toolTip: {
-                    classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
+                    classNames: toolTipClasses
                 }
             },
             action: () => { setView({ view: 'home', dispatch }) }
@@ -28,7 +29,7 @@ export default function ReaderHeader() {
             toolTip: 'page settings',
             settings: {
                 toolTip: {
-                    classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
+                    classNames: toolTipClasses
                 }
             },
             action: () => { dispatch({ type: 'TOGGLE_SETTINGS' }) }
@@ -38,7 +39,7 @@ export default function ReaderHeader() {
             toolTip: 'read page to me',
             settings: {
                 toolTip: {
-                    classNames: 'mt-20 text-medium p-2 bg-purple-500 border-2 border-black drop-shadow-lg'
+                    classNames: toolTipClasses
                 }
             },
         },
@@ -53,7 +54,9 @@ export default function ReaderHeader() {
     return (
         <div className='w-full flex flex-row justify-between'>
             <span>
-                <h1 className='text-center text-4xl md:text-5xl'>{title}</h1>
+                <h1 className='text-center text-4xl md:text-5xl'>
+                    {title}
+                </h1>
             </span>
             <span className='flex flex-row  items-center justify-evenly w-1/4 h-full text-5xl '>
                 {
