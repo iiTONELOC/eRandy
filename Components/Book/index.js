@@ -7,7 +7,7 @@ export default function Book({ userStyles, book, setView, setBookFn }) {
     const { textColor, background, accentColor, textBackground } = userStyles;
     const [hover, setHover] = useState(false);
     const [isMounted, setMounted] = useState(false);
-    const url = `/book_images/${book.title.split(' ').join('_')}/images/page_0.jpg`
+    const url = `/book_images/${book.title.split(' ').join('_')}/page_0.jpg`
 
     useEffect(() => {
         setMounted(true);

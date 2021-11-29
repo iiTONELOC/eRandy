@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { useState, useEffect } from "react";
 import BookShelf from '../Components/BookShelf'
 import E_Reader from '../Components/eReader';
-import { currentBookHandler } from '../lib/utils/state-helpers';
 export function calculateHeight() {
   const navHeight = 0;
   return window.innerHeight - navHeight;
@@ -13,7 +12,7 @@ export default function Home() {
   const [height, setHeight] = useState(null);
   const [isMounted, setMounted] = useState(false);
   const [currentBook, setCurrentBook] = useState(null);
-  const [textColor, setTextColor] = useState('rgb(229, 231, 235)');
+  const [textColor, setTextColor] = useState('rgb(209, 213, 219)');
   const [accentColor, setAccentColor] = useState('rgb(229, 231, 235)');
   const [background, setBackground] = useState(`rgba(31, 41, 55,1)`);
   const [textBackground, setTextBackground] = useState(`rgba(0, 0,0,${opacity})`);
