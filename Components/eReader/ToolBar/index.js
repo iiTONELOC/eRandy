@@ -1,13 +1,11 @@
 import { decreaseFontSize, increaseFontSize } from '../../../Providers/GlobalState/helpers';
+import { TextBackgroundColorPicker } from '../ColorPicker/TextBackground';
 import { AiOutlineBgColors, AiOutlineFontColors } from 'react-icons/ai';
 import { useGlobalStateContext } from '../../../Providers/GlobalState';
 import { CgPlayListAdd, CgPlayListRemove } from 'react-icons/cg';
 import ButtonWithToolTip from '../../ButtonWithToolTip';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-import { SwatchesPicker } from 'react-color';
-import { FontColorPicker } from '../ColorPicker/FontColor';
-import { TextBackgroundColorPicker } from '../ColorPicker/TextBackground';
 
 export default function ToolBar() {
     const globalState = useGlobalStateContext() || [{}, () => { }];
@@ -43,24 +41,24 @@ export default function ToolBar() {
             }
         },
         {
-            name: <FontColorPicker icon={AiOutlineFontColors} />,
+            Icon: AiOutlineFontColors,
             toolTip: 'change font color',
             settings: {
                 toolTip: {
                     classNames: toolTipClasses
                 }
             },
-            action: () => { dispatch({ type: 'TOGGLE_COLOR_PICKER', picker: 'font' }) }
+            action: () => { dispatch({ type: 'TOGGLE_TEXT_COLOR_PICKER' }) }
         },
         {
-            name: <TextBackgroundColorPicker icon={AiOutlineBgColors} />,
+            Icon: AiOutlineBgColors,
             toolTip: 'change text background color',
             settings: {
                 toolTip: {
                     classNames: toolTipClasses
                 }
             },
-            action: () => { dispatch({ type: 'TOGGLE_COLOR_PICKER', picker: 'background' }) }
+            action: () => { dispatch({ type: 'TOGGLE_COLOR_PICKER' }) }
         },
         {
             Icon: AiOutlineCloseCircle,

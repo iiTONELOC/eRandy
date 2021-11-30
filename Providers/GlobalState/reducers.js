@@ -55,7 +55,10 @@ export const reducer = (state, action) => {
                 adjustableFontSize: action.fontSize
             }
         case SET_TEXT_COLOR:
-            break
+            return {
+                ...state,
+                textColor: action.color
+            }
         case SET_BACKGROUND:
             break
         case SET_PAGE_NUMBER:
@@ -74,18 +77,20 @@ export const reducer = (state, action) => {
         case SET_ACCENT_COLOR:
             break
         case SET_TEXT_BACKGROUND:
-            break
-        case TOGGLE_COLOR_PICKER:
-
             return {
                 ...state,
-                colorPicker: !state.colorPicker
+                textBackground: action.color
             }
         case TOGGLE_COLOR_PICKER:
-
             return {
                 ...state,
                 backgroundPicker: !state.backgroundPicker
+            }
+        case TOGGLE_TEXT_COLOR_PICKER:
+            console.log('TOGGLE COLORPICKER')
+            return {
+                ...state,
+                colorPicker: !state.colorPicker
             }
         default:
             return state;

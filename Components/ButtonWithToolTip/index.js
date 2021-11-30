@@ -26,7 +26,7 @@ const iconColor = 'text-gray-400'
         },
 */
 export default function ButtonWithToolTip({ ...props }) {
-    const { Icon, toolTip, action, settings, iconSize, name, iconProps } = props;
+    const { Icon, toolTip, action, settings, iconSize, name, } = props;
     const [isMounted, setMounted] = useState(false);
     const [hover, setHover] = useState(false);
 
@@ -48,7 +48,7 @@ export default function ButtonWithToolTip({ ...props }) {
             } : null}
         >
             <button
-            > {Icon ? <Icon size={iconSize} style={iconProps} /> : name}</button>
+            > {Icon ? <Icon size={iconSize} color={settings?.icon?.color} /> : name}</button>
 
             {
                 hover === true ?

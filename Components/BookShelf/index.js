@@ -2,19 +2,18 @@ import { useGlobalStateContext } from "../../Providers/GlobalState";
 import getBookData from "../../Hooks/getBookData";
 import { useState, useEffect } from "react";
 import Book from "../Book";
-import { setLibrary } from "../../Providers/GlobalState/helpers";
+
 
 export default function BookShelf() {
     const globalState = useGlobalStateContext();
-    const [state, dispatch] = globalState || [{}, () => { }];
+    const [state,] = globalState || [{}, () => { }];
     const { textColor, background, accentColor } = state || {};
-    const { books, loading, error } = getBookData();
+    const { books, error } = getBookData();
     const [myBooks, setMyBooks] = useState(null);
     useEffect(() => {
         if (books.length > 0 && !myBooks) {
             setMyBooks(books);
-            console.log(books)
-        }
+        };
     });
     if (!myBooks) { return <h1 className='text-center text-9xl'>NO BOOKS YET!!</h1> }
     { error && <h1 className='text-center text-6xl'>{error}</h1> }
@@ -30,7 +29,6 @@ export default function BookShelf() {
                 className='w-full h-full flex flex-col justify-center items-center mt-6 '
                 style={{
                     backgroundColor: accentColor,
-
                 }}
             >
                 <div className='w-full h-full flex flex-row overflow-x-auto justify-center items-center p-8'
@@ -47,8 +45,8 @@ export default function BookShelf() {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 
 

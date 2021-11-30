@@ -23,8 +23,6 @@ export default function Home() {
     <section
       style={{
         height: height,
-        color: textColor,
-        backgroundColor: background,
       }}
       className={`flex flex-col justify-center items-center overflow-y-auto`}
     >

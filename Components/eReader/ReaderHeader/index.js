@@ -3,7 +3,6 @@ import ReadAloud from "../../ReadAloud";
 import { useState, useEffect } from "react";
 import { IoLibrary } from "react-icons/io5";
 import { IoMdOptions } from "react-icons/io";
-import { SwatchesPicker } from "react-color";
 import ButtonWithToolTip from "../../ButtonWithToolTip"
 import { setView } from "../../../Providers/GlobalState/helpers";
 import { useGlobalStateContext } from "../../../Providers/GlobalState";
@@ -55,7 +54,7 @@ export default function ReaderHeader() {
     if (!isMounted) return null;
 
     return (
-        <div className='w-full flex flex-wrap flex-row justify-between'>
+        <div className='w-full flex flex-wrap flex-row justify-between text-gray-300'>
             <span>
                 <h1 className='text-center text-4xl md:text-5xl'>
                     {title}

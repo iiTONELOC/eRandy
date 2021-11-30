@@ -26,7 +26,6 @@ export default function Book({ book }) {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundImage: `url(${url})`,
-
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -38,20 +37,17 @@ export default function Book({ book }) {
                     style={{
                         background: textBackground,
                         color: textColor,
-
                     }}
                 >
-                    <span className='overflow-y-auto'
+                    <span className='overflow-y-auto w-full h-full flex flex-col justify-around'
                         style={{
                             background: textBackground,
                             color: textColor,
-
                         }}>
                         <h1>{book.series}</h1>
                         <h2 className='italic'>{book.title}</h2>
                         <h3 className='italic'>{book.author}</h3>
                     </span>
-
                     <span className=' absolute self-end '>
                         <ButtonWithToolTip
                             Icon={GiWhiteBook}

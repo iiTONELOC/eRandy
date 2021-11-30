@@ -75,7 +75,7 @@ export default function Page() {
         >
             <div
                 style={{
-                    backgroundColor: pageText.trim() == '' ? null : textBackground,
+                    backgroundColor: pageText.trim() == '' ? null : 'rgba(0,0,0,0.3)',
                     color: textColor,
                 }}
                 className='w-full h-full flex flex-col justify-center items-center rounded-lg '
@@ -88,7 +88,12 @@ export default function Page() {
                         {/* 96 too big 72 is too small */}
                         <section className='w-full h-full flex flex-col justify-between items-start '>
                             <div className='overflow-y-auto'>
-                                <p className='w-full text-center my-3 overflow-y-auto ' style={{ fontSize: adjustableFontSize }}>
+                                <p className='w-full text-center my-3 overflow-y-auto '
+                                    style={{
+                                        fontSize: adjustableFontSize,
+                                        backgroundColor: textBackground,
+
+                                    }}>
                                     {pageText}
                                 </p>
                             </div>
@@ -100,7 +105,7 @@ export default function Page() {
                             </footer>
                         </section>
                     </div>
-                    <div className='w-1/12 k h-full flex flex-col items-end pr-2 justify-center '>
+                    <div className='w-1/12 k h-full flex flex-col items-end pr-2 justify-center' >
                         {hover && <ButtonWithToolTip {...buttonData[1]} />}
                     </div>
                 </div>
