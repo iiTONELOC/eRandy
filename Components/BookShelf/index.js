@@ -11,7 +11,8 @@ export default function BookShelf() {
     const { books, error } = getBookData();
     const [myBooks, setMyBooks] = useState(null);
     useEffect(() => {
-        if (books.length > 0 && !myBooks) {
+        if (books.length > 0) {
+            console.log("books", books);
             setMyBooks(books);
         };
     });
@@ -26,12 +27,12 @@ export default function BookShelf() {
             <h1 className='text-center text-7xl md:text-9xl underline'>BookShelf</h1>
             {/* TOOL BAR GOES HERE */}
             <div
-                className='w-full h-full flex flex-col justify-center items-center mt-6 '
+                className='w-full h-full flex flex-row justify-center items-center mt-6 overflow-auto'
                 style={{
                     backgroundColor: accentColor,
                 }}
             >
-                <div className='w-full h-full flex flex-row overflow-x-auto justify-center items-center p-8'
+                <div className='w-full h-full flex flex-row overflow-auto justify-center items-center gap-10 p-8'
                     style={{
                         backgroundColor: background,
                     }}

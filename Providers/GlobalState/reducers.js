@@ -27,7 +27,8 @@ export const reducer = (state, action) => {
                 ...state,
                 currentBook: {
                     ...state.currentBook,
-                    currentImage: `/book_images/${state.currentBook.title.split(' ').join('_')}/page_${action.pageNumber}.jpg`,
+                    currentImage: `/book_images/${state.currentBook.title.split(' ')
+                        .join('_').split('?').join('')}/page_${action.pageNumber}.jpg`,
                 }
             }
         case SET_A_BOOK:
@@ -36,7 +37,8 @@ export const reducer = (state, action) => {
                 currentBook: {
                     title: action.book.title,
                     currentPage: 0,
-                    currentImage: `/book_images/${action.book.title.split(' ').join('_')}/page_0.jpg`,
+                    currentImage: `/book_images/${action.book.title.split(' ')
+                        .join('_').split('?').join('')}/page_0.jpg`,
                     pages: action.book.pages,
                     pageText: action.book.pages[0][`page_0.jpg`]
                 }

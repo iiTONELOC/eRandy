@@ -10,8 +10,11 @@ export default async function getBooksRoute(req, res) {
     const files = await fsPromises.readdir(__dirname);
     // if we have files we need to read the JSON files
     if (files?.length > 0) {
-      books = await Promise.all(files.map(book => fsPromises.readFile(path.join(__dirname, `${book}\\${book}.json`), 'utf8')));
+
+      books = await Promise.all(files.map(book => fsPromises.readFile(path.join(__dirname, `${book}/${book}.json`), 'utf8')));
+
     }
+
     return res.status(200).json({ data: books })
   } catch (error) {
     console.log(error.message)

@@ -10,7 +10,8 @@ export default function Book({ book }) {
     const [isMounted, setMounted] = useState(false);
     const [state, dispatch] = globalState || [{}, () => { }];
     const { textColor, textBackground } = state || {};
-    const url = `/book_images/${book.title.split(' ').join('_')}/page_0.jpg`;
+    const url = `/book_images/${book.title.split(' ').join('_')
+        .split('?').join('')}/page_0.jpg`;
 
     useEffect(() => {
         setMounted(true);
