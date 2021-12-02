@@ -9,8 +9,6 @@ export function TextBackgroundColorPicker({ }) {
     const [colorHex, setColorHex] = useState(initialColor);
 
     const handleChange = (e) => {
-        console.log(e)
-        console.log(e.hex);
         setColorHex(e.hex);
         dispatch({
             type: "SET_TEXT_BACKGROUND",

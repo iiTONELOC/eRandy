@@ -10,8 +10,13 @@ export default function Book({ book }) {
     const [isMounted, setMounted] = useState(false);
     const [state, dispatch] = globalState || [{}, () => { }];
     const { textColor, textBackground } = state || {};
-    const url = `/book_images/${book.title.split(' ').join('_')
-        .split('?').join('')}/page_0.jpg`;
+
+
+    const url = `/book_images/${book.title
+        .split(' ')
+        .join('_')
+        .split('?')
+        .join('')}/page_0.jpg`;
 
     useEffect(() => {
         setMounted(true);
@@ -21,7 +26,7 @@ export default function Book({ book }) {
 
     return (
         <article
-            className='w-full h-full lg:w-2/3 bg-black flex  flex-column items-start justify-center rounded-xl p-3 static'
+            className='w-full h-full md:w-3/5 lg:w-1/3 bg-black flex  flex-column items-start justify-center rounded-xl p-3 flex-shrink-0 static'
             style={{
                 maskRepeat: 'no-repeat',
                 backgroundSize: 'cover',
@@ -34,22 +39,22 @@ export default function Book({ book }) {
         >
             {hover &&
                 <div
-                    className='w-full h-full rounded-xl p-4 flex flex-col justify-evenly gap-5 text-3xl sm:text-5xl md:text-7xl lg:text-8xl  static'
+                    className='w-full h-full rounded-xl p-4 flex flex-col justify-center gap-5 text-3xl sm:text-5xl md:text-7xl lg:text-7xl  static'
                     style={{
                         background: textBackground,
                         color: textColor,
                     }}
                 >
-                    <span className='overflow-y-auto w-full h-full flex flex-col justify-around'
+                    <span className='overflow-auto w-full h-full flex flex-col items-center'
                         style={{
                             background: textBackground,
                             color: textColor,
                         }}>
-                        <h1>{book.series}</h1>
+                        <h1 className='italic'>{book.series}</h1>
                         <h2 className='italic'>{book.title}</h2>
                         <h3 className='italic'>{book.author}</h3>
                     </span>
-                    <span className=' absolute self-end '>
+                    <span className=' '>
                         <ButtonWithToolTip
                             Icon={GiWhiteBook}
                             toolTip={'Double Click to Read'}

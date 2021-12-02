@@ -14,7 +14,6 @@ import {
 } from './actions';
 
 export function setView({ view, dispatch }) {
-    console.log('setView', view);
     return dispatch({
         type: SET_VIEW,
         view

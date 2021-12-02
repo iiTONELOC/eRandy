@@ -3,7 +3,7 @@ import { FcPrevious, FcNext } from "react-icons/fc";
 import ButtonWithToolTip from "../../ButtonWithToolTip"
 import { useGlobalStateContext } from "../../../Providers/GlobalState";
 import { previousPage, nextPage } from "../../../Providers/GlobalState/helpers";
-
+import { handlePageHeight } from "../../../lib/utils/utils";
 const buttonSettings = {
     color: 'gray-400',
     hover: 'purple-500'
@@ -13,6 +13,7 @@ const toolTipClasses = 'mt-20 text-medium p-2 bg-purple-500 border-2 border-blac
 
 export default function Page() {
     const [hover, setHover] = useState(false);
+    const [height, setHeight] = useState(null);
     const globalState = useGlobalStateContext() || [{}, () => { }];
     const [isMounted, setMounted] = useState(false);
     const [state, dispatch] = globalState || [{}, () => { }];
@@ -21,8 +22,11 @@ export default function Page() {
 
     useEffect(() => {
         setMounted(true);
+        if (isMounted) {
+            handlePageHeight(setHeight, 48);
+        };
         return () => { setMounted(false) };
-    }, []);
+    }, [isMounted]);
 
     if (!isMounted) return null;
     const buttonData = [{
@@ -61,14 +65,13 @@ export default function Page() {
 
     return (
         <div
-            className='w-full h-full flex flex-col justify-center items-center mt-6 p-2 rounded-lg'
+            className='w-full flex flex-row justify-center items-center p-2 rounded-lg overflow-hidden'
             style={{
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',
                 backgroundPosition: 'center',
-                backgroundImage: `url(${currentImage})`
-                ,
-                // objectFit: 'scale-down',
+                backgroundImage: `url(${currentImage})`,
+                height: height,
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -80,36 +83,38 @@ export default function Page() {
                 }}
                 className='w-full h-full flex flex-col justify-center items-center rounded-lg '
             >
-                <div className="flex flex-row gap-2 justify-start h-full w-full ">
-                    <div className='w-1/12 k h-full flex flex-col items-start justify-center pl-2'>
-                        {hover && <ButtonWithToolTip {...buttonData[0]} />}
-                    </div>
+                <div className="flex flex-row gap-2 justify-start h-full w-full static">
                     <div className='w-full h-full flex flex-row items-start justify-center'>
                         {/* 96 too big 72 is too small */}
-                        <section className='w-full h-full flex flex-col justify-between items-start '>
-                            <div className='overflow-y-auto'>
-                                <p className='w-full text-center my-3 overflow-y-auto '
-                                    style={{
-                                        fontSize: adjustableFontSize,
-                                        backgroundColor: textBackground,
-
-                                    }}>
+                        <section className='w-full h-full flex flex-col justify-between items-start'>
+                            <div className='w-full h-full text-center mt-1 overflow-y-auto rounded-t-xl  p-5'
+                                style={{
+                                    fontSize: adjustableFontSize,
+                                    backgroundColor: pageText.trim() == '' ? null : textBackground,
+                                }}
+                            >
+                                <p>
                                     {pageText}
                                 </p>
                             </div>
-
-                            <footer
-                                className='w-full block text-center mt-5 mb-2'
+                            <span className='w-full flex flex-row justify-between  rounded-b-xl'
+                                style={{
+                                    fontSize: adjustableFontSize,
+                                    backgroundColor: pageText.trim() == '' ? null : textBackground,
+                                }}
                             >
+                                <div className='ml-8 w-1/12  h-full flex flex-col items-start justify-center pl-2'>
+                                    {hover && <ButtonWithToolTip {...buttonData[0]} />}
+                                </div>
                                 <p style={{ fontSize: adjustableFontSize }}>- {currentPage} -</p>
-                            </footer>
+                                <div className='w-1/12  h-full flex flex-col items-end justify-center mr-8 ' >
+                                    {hover && <ButtonWithToolTip {...buttonData[1]} />}
+                                </div>
+                            </span>
                         </section>
-                    </div>
-                    <div className='w-1/12 k h-full flex flex-col items-end pr-2 justify-center' >
-                        {hover && <ButtonWithToolTip {...buttonData[1]} />}
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

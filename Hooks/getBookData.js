@@ -12,7 +12,6 @@ export default function getBookData() {
         queryBooks().then(data => {
             data?.data?.forEach(_book => {
                 const dataObj = JSON.parse(_book);
-                const pages = dataObj.pages;
                 setBooks(books => [...books, dataObj]);
             });
         }).catch(err => { console.log(err); setError(true) })

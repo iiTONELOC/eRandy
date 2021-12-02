@@ -8,42 +8,57 @@ export default function BookShelf() {
     const globalState = useGlobalStateContext();
     const [state,] = globalState || [{}, () => { }];
     const { textColor, background, accentColor } = state || {};
+    const [isMounted, setMounted] = useState(false);
+    const [isOverflow, setOverflow] = useState(false);
     const { books, error } = getBookData();
     const [myBooks, setMyBooks] = useState(null);
+
     useEffect(() => {
         if (books.length > 0) {
-            console.log("books", books);
             setMyBooks(books);
         };
     });
-    if (!myBooks) { return <h1 className='text-center text-9xl'>NO BOOKS YET!!</h1> }
+    useEffect(() => {
+        function handleOverflow() {
+            const shelf = document.querySelector("#shelf");
+            if (shelf?.scrollWidth > window?.innerWidth) {
+                setOverflow(true);
+            } else {
+                setOverflow(false);
+            }
+        }
+        setMounted(true);
+        if (isMounted) {
+            handleOverflow();
+            window.addEventListener("resize", handleOverflow);
+        }
+
+        return () => { setMounted(false); setOverflow(false); window.removeEventListener("resize", handleOverflow); }
+    }, [isOverflow])
+    if (!myBooks) { return <h1 className='text-gray-400 text-center text-9xl'>NO BOOKS YET!!</h1> }
     { error && <h1 className='text-center text-6xl'>{error}</h1> }
     if (!state) return null;
+
     return (
         <div
             className='w-full h-full flex flex-col justify-top items-center py-5 px-2'
             style={{ backgroundColor: background, color: textColor }}
         >
             <h1 className='text-center text-7xl md:text-9xl underline'>BookShelf</h1>
-            {/* TOOL BAR GOES HERE */}
             <div
-                className='w-full h-full flex flex-row justify-center items-center mt-6 overflow-auto'
+                id='shelf'
+                className={`w-full h-full flex overflow-x-auto items-center  gap-10 p-8 `}
                 style={{
-                    backgroundColor: accentColor,
+                    backgroundColor: background,
+                    justifyContent: isOverflow === true ? "flex-start" : "center",
                 }}
             >
-                <div className='w-full h-full flex flex-row overflow-auto justify-center items-center gap-10 p-8'
-                    style={{
-                        backgroundColor: background,
-                    }}
-                >
-                    {myBooks.map(book =>
-                        <Book
-                            key={book.title}
-                            book={book}
-                        />
-                    )}
-                </div>
+                {myBooks.map(book =>
+                    <Book
+                        key={book.title}
+                        book={book}
+                    />
+                )}
             </div>
         </div>
     );

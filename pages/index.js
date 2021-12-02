@@ -8,7 +8,7 @@ export default function Home() {
   const globalState = useGlobalStateContext();
   const [isMounted, setMounted] = useState(false);
   const [state,] = globalState || [{}, () => { }];
-  const { view, textColor, background, } = state || {};
+  const { view } = state || {};
 
   useEffect(() => {
     setMounted(true);
@@ -24,7 +24,7 @@ export default function Home() {
       style={{
         height: height,
       }}
-      className={`flex flex-col justify-center items-center overflow-y-auto`}
+      className={`flex flex-col justify-center items-center bg-gray-800`}
     >
       {view === 'home' && <BookShelf />}
       {view === 'book' && <E_Reader />}

@@ -13,16 +13,12 @@ export default function E_Reader() {
     const { title, currentPage, } = currentBook || {};
     useEffect(() => {
         setMounted(true);
-
         return () => { setMounted(false) };
     }, []);
 
     if (!isMounted) return null;
-    console.log(colorPicker)
     return (
-        <div
-            className='w-full h-full flex flex-col justify-top items-center py-5 px-2 bg-gray-900 overflow-y-auto static'
-        >
+        <div className='w-full h-full flex flex-col justify-top items-center  bg-gray-900'>
             <header className='w-full flex flex-row justify-between bg-gray-900'>
                 <ReaderHeader
                     title={title}
@@ -30,7 +26,6 @@ export default function E_Reader() {
                 />
             </header>
             <Page />
-
             {colorPicker && <FontColorPicker />}
             {backgroundPicker && <TextBackgroundColorPicker />}
         </div>
